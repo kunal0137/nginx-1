@@ -7,7 +7,7 @@ FROM debian
 
 LABEL maintainer="semoss@semoss.org"
 
-
+ 
 # Install Java
 # Install git
 # Clone from prabhuk12/nginx need to change this once tim comes back
