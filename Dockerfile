@@ -31,6 +31,10 @@ RUN apt-get update	\
 	&& mkdir /opt/semosshome/nginx/scripts \
 	&& cd /opt/semosshome \ 
 	&& apt-get clean all
+	&& git config --global http.sslverify false \
+	&& cd /opt && git clone https://github.com/SEMOSS/semoss-artifacts \
+	&& chmod 777 /opt/semoss-artifacts/artifacts/scripts/* \
+	&& /opt/semoss-artifacts/artifacts/scripts/update_latest_dev_cluster.sh \
 #	&& git clone https://github.com/prabhuk12/nginx
 
 WORKDIR /opt/semosshome/nginx/scripts
