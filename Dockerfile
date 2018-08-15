@@ -7,6 +7,7 @@ FROM debian
 
 LABEL maintainer="semoss@semoss.org"
 
+ENV PATH=$PATH:/opt/semosshome/apache-maven-3.5.4/bin:/opt/semoss-artifacts/artifacts/scripts
  
 # Install Java
 # Install git
@@ -28,7 +29,6 @@ RUN apt-get update	\
 	&& cd /opt/semosshome \
 	&& wget -P /opt/semosshome https://apache.claz.org/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz \
 	&& cd /opt/semosshome && tar -xvf /opt/semosshome/apache-maven-3.5.4-bin.tar.gz && rm /opt/semosshome/apache-maven-3.5.4-bin.tar.gz \
-	&& export PATH=$PATH:/opt/semosshome/apache-maven-3.5.4/bin \
 	&& mkdir /opt/semosshome/nginx \
 	&& mkdir /opt/semosshome/nginx/scripts \
 	&& cd /opt/semosshome \ 
