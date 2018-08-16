@@ -29,15 +29,13 @@ RUN apt-get update	\
 	&& cd /opt/semosshome \
 	&& wget -P /opt/semosshome https://apache.claz.org/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz \
 	&& cd /opt/semosshome && tar -xvf /opt/semosshome/apache-maven-3.5.4-bin.tar.gz && rm /opt/semosshome/apache-maven-3.5.4-bin.tar.gz \
-	&& mkdir /opt/semosshome/nginx \
-	&& mkdir /opt/semosshome/nginx/scripts \
-	&& cd /opt/semosshome \ 
 	&& apt-get clean all \
 	&& git config --global http.sslverify false \
 	&& cd /opt && git clone https://github.com/SEMOSS/semoss-artifacts \
 	&& chmod 777 /opt/semoss-artifacts/artifacts/scripts/* \
-	&& /opt/semoss-artifacts/artifacts/scripts/update_latest_dev_cluster.sh 
-#	&& git clone https://github.com/prabhuk12/nginx
+	&& /opt/semoss-artifacts/artifacts/scripts/update_latest_dev_cluster.sh \
+	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx \
+	&& mkdir /opt/semosshome/nginx/scripts
 
 WORKDIR /opt/semosshome/nginx/scripts
 
