@@ -1,20 +1,11 @@
-# Main Docker File for All the SEMOSS Pieces
-
-# Start from the loaded R-Base-with-java
-# Using R 3.5
+# Dockerfile for SEMOSS NGINX
 
 FROM debian
 
 LABEL maintainer="semoss@semoss.org"
 
-ENV PATH=$PATH:/opt/semosshome/apache-maven-3.5.4/bin:/opt/semoss-artifacts/artifacts/scripts
- 
-# Install Java
-# Install git
-# Clone from prabhuk12/nginx need to change this once tim comes back
-# Start listening
+ENV PATH=$PATH:/opt/semosshome/apache-maven-3.5.4/bin:/opt/semoss-artifacts/artifacts/scripts:/opt/semosshome/nginx/scripts
 
-RUN echo "Starting install " 
 RUN apt-get update	\
 	&& apt-get install -y software-properties-common \
 	&& apt-get install -y  openjdk-8-jdk \
@@ -49,12 +40,11 @@ RUN apt-get update	\
 	&& cd /opt/semosshome && tar -xvf /opt/semosshome/apache-maven-3.5.4-bin.tar.gz && rm /opt/semosshome/apache-maven-3.5.4-bin.tar.gz \
 	&& apt-get clean all \
 	&& git config --global http.sslverify false \
-	&& cd /opt && git clone https://github.com/SEMOSS/semoss-artifacts \
+	&& cd /opt && git clone https://github.com/SEMOSS/semoss-artifacts.git \
 	&& chmod 777 /opt/semoss-artifacts/artifacts/scripts/* \
 	&& /opt/semoss-artifacts/artifacts/scripts/update_latest_dev_cluster.sh \
-	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx \
-	&& mkdir /opt/semosshome/nginx/scripts
+	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx.git
 
 WORKDIR /opt/semosshome/nginx/scripts
 
-CMD ["runAll.sh"]
+CMD ["bash"]
