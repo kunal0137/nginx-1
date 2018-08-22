@@ -1,2 +1,2 @@
 #!/bin/bash
-nginx -s reload
+nginx -c /opt/semosshome/nginx/conf/nginx.conf -s reload
