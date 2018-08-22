@@ -7,21 +7,24 @@ LABEL maintainer="semoss@semoss.org"
 ENV PATH=$PATH:/opt/semosshome/apache-maven-3.5.4/bin:/opt/semoss-artifacts/artifacts/scripts:/opt/semosshome/nginx/scripts
 
 RUN apt-get update	\
+	&& echo ------- installing packages ------- \
 	&& apt-get install -y software-properties-common \
 	&& apt-get install -y  openjdk-8-jdk \
-	&& apt install -y wget \
-	&& apt install -y git \
-	&& apt install -y procps \
-	&& apt install -y vim \
-	&& apt install -y curl \
-	&& apt install -y nano \
-	&& apt install -y build-essential \
+	&& apt-get install -y wget \
+	&& apt-get install -y git \
+	&& apt-get install -y procps \
+	&& apt-get install -y vim \
+	&& apt-get install -y nano \
+	&& apt-get install -y curl \
+	&& apt-get install -y build-essential \
+	&& echo ------- installing nginx ------- \
 	&& mkdir /opt/nginx-files \
 	&& cd /opt/nginx-files \
 	&& wget https://nginx.org/download/nginx-1.13.1.tar.gz && tar zxvf nginx-1.13.1.tar.gz \
 	&& wget https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.gz && tar xzvf pcre-8.40.tar.gz \
 	&& wget http://www.zlib.net/zlib-1.2.11.tar.gz && tar xzvf zlib-1.2.11.tar.gz \
 	&& wget https://www.openssl.org/source/openssl-1.1.0f.tar.gz && tar xzvf openssl-1.1.0f.tar.gz \
+	&& echo ------- installing nginx sticky module ------- \
 	&& git clone https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng.git \
 	&& rm -rf *.tar.gz \
 	&& cd /opt/nginx-files/nginx-1.13.1 \
@@ -33,17 +36,22 @@ RUN apt-get update	\
 	&& wget https://raw.githubusercontent.com/kunal0137/nginx/master/nginx \
 	&& mv nginx nginx.service \
 	&& systemctl enable nginx.service \
+	&& echo ------- testing nginx install ------ \
 	&& nginx \
+	&& echo ------- installing maven ------- \
 	&& mkdir /opt/semosshome \
 	&& cd /opt/semosshome \
 	&& wget -P /opt/semosshome https://apache.claz.org/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz \
 	&& cd /opt/semosshome && tar -xvf /opt/semosshome/apache-maven-3.5.4-bin.tar.gz && rm /opt/semosshome/apache-maven-3.5.4-bin.tar.gz \
-	&& apt-get clean all \
+	&& echo ------- installing semoss-artifacts ------- \
 	&& git config --global http.sslverify false \
 	&& cd /opt && git clone https://github.com/SEMOSS/semoss-artifacts.git \
 	&& chmod 777 /opt/semoss-artifacts/artifacts/scripts/* \
 	&& /opt/semoss-artifacts/artifacts/scripts/update_latest_dev_cluster.sh \
-	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx.git
+	&& echo ------- cloning nginx conf files ------- \
+	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx.git \
+	&& echo ------- cleaning up ------- \
+	&& apt-get clean all
 
 WORKDIR /opt/semosshome/nginx/scripts
 
