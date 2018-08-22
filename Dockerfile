@@ -50,6 +50,8 @@ RUN apt-get update	\
 	&& /opt/semoss-artifacts/artifacts/scripts/update_latest_dev_cluster.sh \
 	&& echo ------- cloning nginx conf files ------- \
 	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx.git \
+	&& echo ------- configuring nginx ------- \
+	&& cp /etc/nginx/mime.types /opt/semosshome/nginx/conf/mime.types \
 	&& echo ------- cleaning up ------- \
 	&& apt-get clean all
 
