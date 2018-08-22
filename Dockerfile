@@ -33,7 +33,7 @@ RUN apt-get update	\
 	&& make install \
 	&& mkdir -p /var/lib/nginx && nginx -t \
 	&& cd /etc/systemd/system \
-	&& wget https://raw.githubusercontent.com/kunal0137/nginx/master/nginx \
+	&& wget https://raw.githubusercontent.com/prabhuk12/nginx/master/nginx_service \
 	&& mv nginx nginx.service \
 	&& systemctl enable nginx.service \
 	&& echo ------- testing nginx install ------ \
