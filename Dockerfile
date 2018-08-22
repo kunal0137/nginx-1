@@ -52,6 +52,7 @@ RUN apt-get update	\
 	&& cd /opt/semosshome && git clone https://github.com/prabhuk12/nginx.git \
 	&& echo ------- configuring nginx ------- \
 	&& cp /etc/nginx/mime.types /opt/semosshome/nginx/conf/mime.types \
+	&& sed -i "s/<replace_with_server_name>/${SERVER_NAME}/g" /opt/semosshome/nginx/templates/upstream.conf \
 	&& echo ------- cleaning up ------- \
 	&& apt-get clean all
 
