@@ -59,4 +59,4 @@ RUN apt-get update	\
 
 WORKDIR /opt/semosshome/nginx/scripts
 
-CMD ["bash"]
+CMD ["start_nginx.sh"]
