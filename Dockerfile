@@ -34,7 +34,7 @@ RUN apt-get update	\
 	&& mkdir -p /var/lib/nginx && nginx -t \
 	&& cd /etc/systemd/system \
 	&& wget https://raw.githubusercontent.com/prabhuk12/nginx/master/nginx_service \
-	&& mv nginx nginx.service \
+	&& mv nginx_service nginx.service \
 	&& systemctl enable nginx.service \
 	&& echo ------- testing nginx install ------ \
 	&& nginx \
