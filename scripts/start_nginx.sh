@@ -9,5 +9,9 @@ nginx -c /opt/semosshome/nginx/conf/nginx.conf
 # Edit the template
 sed -i "s/<replace_with_server_name>/${SERVER_NAME}/g" /opt/semosshome/nginx/templates/upstream.conf
 
+if [[ -z "${NGINX_ROUTE}" ]]; then
+sed -i "s@sticky;@sticky name=$NGINX_ROUTE;@g" /opt/semosshome/nginx/templates/upstream.conf
+fi
+
 # Run the watcher
 java -classpath /opt/semosscluster.jar prerna.cluster.util.NGINXStarter
